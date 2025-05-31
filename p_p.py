@@ -33,10 +33,12 @@ window = display.set_mode((window_width,window_hight))
 window.fill(back)
 clock = time.Clock()
 FPS = 60
+ball = GameSprite('tenis_ball.png',4,200,200,50,50)
 game = True
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+    ball.reset()
     display.update()
     clock.tick(FPS)
