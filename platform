@@ -12,16 +12,16 @@ class GameSprite(sprite.Sprite):
 class Player(GameSprite):
     def update_left(self):
         keys_pressed = key.get_pressed()
-        if keys_pressed[K_LEFT] and self.rect.x > 5:
-            self.rect.x -= self.speed
-        if keys_pressed[K_RIGHT] and self.rect.x < window_width-80:
-            self.rect.x += self.speed
+        if keys_pressed[K_UP] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys_pressed[K_DOWN] and self.rect.y < window_hight-80:
+            self.rect.y += self.speed
     def update_right(self):
         keys_pressed = key.get_pressed()
-        if keys_pressed[K_w] and self.rect.x > 5:
-            self.rect.x -= self.speed
-        if keys_pressed[K_s] and self.rect.x < window_width-80:
-            self.rect.x += self.speed
+        if keys_pressed[K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys_pressed[K_s] and self.rect.y < window_hight-80:
+            self.rect.y += self.speed
     def fire(self):
         bullet = Bullet('bullet.png',-10,self.rect.centerx,self.rect.top,15,20)
         bullets.add(bullet)
@@ -34,11 +34,28 @@ window.fill(back)
 clock = time.Clock()
 FPS = 60
 ball = GameSprite('tenis_ball.png',4,200,200,50,50)
+racket1 = Player('racket.png',4,30,200,50,150)
+racket2 = Player('racket.png',4,520,200,50,150)
+Finish = False
+speed_x = 3
+speed_y = 3
 game = True
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
-    ball.reset()
+    if Finish != True:
+        window.fill(back)
+        racket1.update_left()
+        racket2.update_right()
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+        if ball.rect.y > window_hight-50 or ball.rect.y < 0 :
+            speed_y *= -1
+        if sprite.collide_rect(racket1,ball) or sprite.collide_rect(racket2,ball):
+            speed_x *= -1
+        ball.reset()
+        racket1.reset()
+        racket2.reset()
     display.update()
     clock.tick(FPS)
