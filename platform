@@ -22,9 +22,6 @@ class Player(GameSprite):
             self.rect.y -= self.speed
         if keys_pressed[K_s] and self.rect.y < window_hight-80:
             self.rect.y += self.speed
-    def fire(self):
-        bullet = Bullet('bullet.png',-10,self.rect.centerx,self.rect.top,15,20)
-        bullets.add(bullet)
 
 font.init()
 back = (200,255,255)
@@ -48,6 +45,15 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+        if e.type == KEYDOWN:
+            if e.key == K_r and Finish == True:
+                ball.rect.x = 200
+                ball.rect.y = 200
+                racket1.rect.y =200
+                racket2.rect.y = 200
+                speed_x = 3
+                speed_y = 3
+                Finish = False
     if Finish != True:
         window.fill(back)
         racket1.update_left()
