@@ -65,10 +65,10 @@ while game:
         if sprite.collide_rect(racket1,ball) or sprite.collide_rect(racket2,ball):
             speed_x *= -1
         if ball.rect.x < 0:
-            finish = True
+            Finish = True
             window.blit(lose1,(200,200))
         if ball.rect.x > window_width:
-            finish = True
+            Finish = True
             window.blit(lose2,(200,200))
         ball.reset()
         racket1.reset()
